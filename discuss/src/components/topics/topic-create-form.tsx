@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Button,
   Input,
@@ -7,26 +9,48 @@ import {
   Textarea,
 } from "@nextui-org/react";
 import { FC } from "react";
-import * as action from "@/actions";
+import * as actions from "@/actions";
+import { useFormState } from "react-dom";
 
 interface Props {}
 
 const TopicCreateForm: FC<Props> = (props): JSX.Element => {
+  const [formState, action] = useFormState(actions.createTopic, {
+    errors: {},
+  });
+
   return (
     <Popover>
       <PopoverTrigger>
         <Button color="primary">Create a Topic</Button>
       </PopoverTrigger>
       <PopoverContent>
-        <form action={action.createTopic}>
+        <form action={action}>
           <div className="flex flex-col gap-4 p-4 w-80">
             <h3 className="text-lg">Craete a Topoic</h3>
-            <Input label="Name" labelPlacement="outside" placeholder="Name" />
+            <Input
+              label="Name"
+              name="name"
+              labelPlacement="outside"
+              placeholder="Name"
+              isInvalid={!!formState.errors.name}
+              errorMessage={formState.errors.name?.join(", ")}
+            />
             <Textarea
               label="Description"
+              name="description"
               labelPlacement="outside"
               placeholder="Describe your topic"
+              isInvalid={!!formState.errors.description}
+              errorMessage={formState.errors.description?.join(", ")}
             />
+
+            {formState.errors._form ? (
+              <div className="p-2 bg-red-200 border border-red-400 rounded-xl">
+                {formState.errors._form.join(", ")}
+              </div>
+            ) : null}
+
             <Button type="submit">Submit</Button>
           </div>
         </form>
