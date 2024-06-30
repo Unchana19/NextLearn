@@ -11,6 +11,7 @@ import {
 import { FC } from "react";
 import * as actions from "@/actions";
 import { useFormState } from "react-dom";
+import FormButton from "../common/form-button";
 
 interface Props {}
 
@@ -51,7 +52,7 @@ const TopicCreateForm: FC<Props> = (props): JSX.Element => {
               </div>
             ) : null}
 
-            <Button type="submit">Submit</Button>
+            <FormButton>Save</FormButton>
           </div>
         </form>
       </PopoverContent>

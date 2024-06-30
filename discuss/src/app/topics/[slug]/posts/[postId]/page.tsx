@@ -1,9 +1,32 @@
-import { NextPage } from 'next';
+import Link from "next/link";
+import { Suspense } from "react";
+import PostShow from "@/components/posts/post-show";
+import CommentList from "@/components/comments/comment-list";
+import CommentCreateForm from "@/components/comments/comment-create-form";
+import paths from "@/paths";
+import { fetchCommentsByPostId } from "@/db/queries/comments";
+import PostShowLoading from "@/components/posts/post-show-loading";
 
-interface Props {}
+interface PostShowPageProps {
+  params: {
+    slug: string;
+    postId: string;
+  };
+}
 
-const PostShowPage: NextPage<Props> = () => {
-  return <div>pagePostShowPage</div>;
-};
+export default async function PostShowPage({ params }: PostShowPageProps) {
+  const { slug, postId } = params;
 
-export default PostShowPage;
+  return (
+    <div className="space-y-3">
+      <Link className="underline decoration-solid" href={paths.topicShow(slug)}>
+        {"< "}Back to {slug}
+      </Link>
+      <Suspense fallback={<PostShowLoading />}>
+        <PostShow postId={postId} />
+      </Suspense>
+      <CommentCreateForm postId={postId} startOpen />
+      <CommentList postId={postId} />
+    </div>
+  );
+}

@@ -1,13 +1,13 @@
 import {
-  Input,
   Navbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
 } from "@nextui-org/react";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, Suspense } from "react";
 import HeaderAuth from "./header-auth";
+import SearchInput from "./search-input";
 
 interface Props {}
 
@@ -22,7 +22,9 @@ const Header: FC<Props> = (props): JSX.Element => {
 
       <NavbarContent justify="center">
         <NavbarItem>
-          <Input />
+          <Suspense>
+            <SearchInput />
+          </Suspense>
         </NavbarItem>
       </NavbarContent>
 
