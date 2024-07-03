@@ -13,7 +13,7 @@ const HomePage: NextPage<Props> = () => {
         <Image
           src={"/google-icon.png"}
           width={300}
-          height={100}
+          height={80}
           alt="google logo"
           priority
           style={{ width: "auto" }}
