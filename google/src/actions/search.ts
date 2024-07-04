@@ -9,5 +9,5 @@ export async function search(formData: FormData) {
     redirect("/");
   }
 
-  redirect(`/search/web?searchTerm=${search}`);
+  redirect(`/search/image?searchTerm=${search}`);
 }
