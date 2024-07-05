@@ -1,6 +1,7 @@
 import { SearchResult, SearchResults } from "@/app/search/web/page";
 import Link from "next/link";
 import { FC } from "react";
+import PagginationButton from "./paggination-button";
 
 interface Props {
   results: SearchResults;
@@ -8,7 +9,7 @@ interface Props {
 
 const ImageSearchResults: FC<Props> = ({ results }: Props): JSX.Element => {
   return (
-    <div className="pb-24 mt-4">
+    <div className="sm:pb-24 pb-40 mt-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-3 space-x-4">
         {results.items.map((result: SearchResult) => {
           return (
@@ -38,6 +39,9 @@ const ImageSearchResults: FC<Props> = ({ results }: Props): JSX.Element => {
             </div>
           );
         })}
+      </div>
+      <div className="ml-16">
+        <PagginationButton />
       </div>
     </div>
   );

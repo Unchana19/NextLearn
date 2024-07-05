@@ -2,6 +2,7 @@ import { SearchResult, SearchResults } from "@/app/search/web/page";
 import Link from "next/link";
 import { FC } from "react";
 import Parser from "html-react-parser";
+import PagginationButton from "./paggination-button";
 
 interface Props {
   results: SearchResults;
@@ -30,6 +31,7 @@ const WebSearchResults: FC<Props> = ({ results }: Props): JSX.Element => {
           </div>
         );
       })}
+      <PagginationButton />
     </div>
   );
 };

@@ -12,6 +12,8 @@ const ImageSearchPage: NextPage<Props> = async () => {
   const searchParams = useSearchParams();
   const searchTerm = searchParams.get("searchTerm");
 
+  const startIndex = searchParams.get("start") || "1";
+
   const response = await fetch(
     `https://www.googleapis.com/customsearch/v1?key=${process.env.NEXT_PUBLIC_API_KEY}&cx=${process.env.NEXT_PUBLIC_CONTEXT_KEY}&q=${searchTerm}`
   );
