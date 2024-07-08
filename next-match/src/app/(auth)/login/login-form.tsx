@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { GiPadlock } from "react-icons/gi";
+import { toast } from "react-toastify";
 
 interface Props {}
 
@@ -27,8 +28,9 @@ const LoginForm: FC<Props> = (props): JSX.Element => {
 
     if (result.status === "success") {
       router.push("/members");
+      router.refresh();
     } else {
-      console.log(result.error);
+      toast.error(result.error as string);
     }
   };
 
