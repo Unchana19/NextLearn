@@ -3,35 +3,28 @@ import { FC, ReactNode } from "react";
 import MemberSidebar from "../member-sidebar";
 import { notFound } from "next/navigation";
 import { Card } from "@nextui-org/react";
+import { getAuthUserId } from "@/actions/authAction";
 
 interface Props {
   children: ReactNode;
-  params: { userId: string };
 }
 
-const Layout: FC<Props> = async ({
-  children,
-  params,
-}: Props): Promise<JSX.Element> => {
-  const { userId } = params;
+const Layout: FC<Props> = async ({ children }: Props): Promise<JSX.Element> => {
+  const userId = await getAuthUserId();
   const member = await getMemberByUserId(userId);
 
   if (!member) return notFound();
 
-  const basePath = `/members/${member.userId}`;
+  const basePath = "/members/edit";
 
   const navLinks = [
     {
-      name: "Profile",
+      name: "Edit Profile",
       href: `${basePath}`,
     },
     {
-      name: "Photos",
+      name: "Update Photos",
       href: `${basePath}/photos`,
-    },
-    {
-      name: "Chat",
-      href: `${basePath}/chat`,
     },
   ];
 
