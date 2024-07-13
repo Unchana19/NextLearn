@@ -1,24 +1,30 @@
 "use client";
 
+import { updateMemberProfile } from "@/actions/userActions";
 import {
   MemberEditSchema,
   memberEditSchema,
 } from "@/lib/schemas/memberEditSchema";
+import { handleFormServerErrors } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { Member } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 interface Props {
   member: Member;
 }
 
 const EditForm: FC<Props> = ({ member }: Props): JSX.Element => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     reset,
+    setError,
     formState: { isValid, isDirty, isSubmitting, errors },
   } = useForm<MemberEditSchema>({
     resolver: zodResolver(memberEditSchema),
@@ -36,8 +42,16 @@ const EditForm: FC<Props> = ({ member }: Props): JSX.Element => {
     }
   }, [member, reset]);
 
-  const onSubmit = (data: MemberEditSchema) => {
-    console.log(data);
+  const onSubmit = async (data: MemberEditSchema) => {
+    const result = await updateMemberProfile(data);
+
+    if (result.status === "success") {
+      toast.success("Profile updated");
+      router.refresh();
+      reset({ ...data });
+    } else {
+      handleFormServerErrors(result, setError);
+    }
   };
 
   return (
