@@ -1,37 +1,37 @@
 import { getAuthUserId } from "@/actions/authAction";
-import { getMemberPhotosByUserId } from "@/actions/memberAction";
-import { CardHeader, Divider, CardBody, Image } from "@nextui-org/react";
+import {
+  getMemberByUserId,
+  getMemberPhotosByUserId,
+} from "@/actions/memberAction";
+import { CardHeader, Divider, CardBody } from "@nextui-org/react";
 import { NextPage } from "next";
+import MemberPhotoUpload from "./member-photo-upload";
+import MemberPhoto from "@/components/member-photo";
+import { Photo } from "@prisma/client";
 
 interface Props {}
 
 const PhotosPage: NextPage<Props> = async () => {
   const userId = await getAuthUserId();
+  const member = await getMemberByUserId(userId);
 
-  const photos = await getMemberPhotosByUserId(userId);
+  const photos = (await getMemberPhotosByUserId(userId)) as Photo[];
 
   return (
     <>
-      <CardHeader className="text-2xl font-semibold text-secondary">
-        Edit Profile
+      <CardHeader className="flex flex-row justify-between items-center">
+        <div className="text-2xl font-semibold text-secondary">
+          Edit Profile
+        </div>
+        <MemberPhotoUpload />
       </CardHeader>
       <Divider />
       <CardBody>
-        <div className="grid grid-cols-5 gap-3 p-5">
-          {photos &&
-            photos.map((photo) => (
-              <div key={photo.id} className="relative">
-                {
-                  <Image
-                    width={220}
-                    height={220}
-                    src={photo.url}
-                    alt="Image of user"
-                  />
-                }
-              </div>
-            ))}
-        </div>
+        <MemberPhoto
+          photos={photos}
+          editing={true}
+          mainImageUrl={member?.image}
+        />
       </CardBody>
     </>
   );

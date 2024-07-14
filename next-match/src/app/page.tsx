@@ -1,7 +1,6 @@
 import { auth, signOut } from "@/auth";
 import { Button } from "@nextui-org/react";
 import { NextPage } from "next";
-import Link from "next/link";
 import { FaRegSmile } from "react-icons/fa";
 
 interface Props {}
