@@ -1,5 +1,5 @@
 import { getMemberByUserId } from "@/actions/memberAction";
-import { CardBody, CardHeader, Divider } from "@nextui-org/react";
+import CardInnerWrapper from "@/components/card-inner-wrapper";
 import { NextPage } from "next";
 import { notFound } from "next/navigation";
 
@@ -13,15 +13,7 @@ const MemberDetailedPage: NextPage<Props> = async ({ params }: Props) => {
 
   if (!member) return notFound();
 
-  return (
-    <>
-      <CardHeader className="text-2xl font-semibold text-secondary">
-        Profile
-      </CardHeader>
-      <Divider />
-      <CardBody>{member.description}</CardBody>
-    </>
-  );
+  return <CardInnerWrapper header="Profile" body={<div>Chat goes here</div>} footer={<div>Char form goes here</div>} />;
 };
 
 export default MemberDetailedPage;

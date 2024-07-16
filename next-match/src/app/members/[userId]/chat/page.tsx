@@ -1,17 +1,16 @@
-import { CardHeader, Divider, CardBody } from "@nextui-org/react";
+import CardInnerWrapper from "@/components/card-inner-wrapper";
 import { NextPage } from "next";
+import ChatForm from "./chat-form";
 
 interface Props {}
 
 const ChatMemberPage: NextPage<Props> = () => {
   return (
-    <>
-      <CardHeader className="text-2xl font-semibold text-secondary">
-        Chat
-      </CardHeader>
-      <Divider />
-      <CardBody>Photos</CardBody>
-    </>
+    <CardInnerWrapper
+      header="Chat"
+      body={<div>chat goes here</div>}
+      footer={<ChatForm />}
+    />
   );
 };
 
