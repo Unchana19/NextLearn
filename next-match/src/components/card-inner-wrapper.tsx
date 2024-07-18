@@ -20,7 +20,6 @@ const CardInnerWrapper: FC<Props> = ({
         ) : (
           <>{header}</>
         )}
-        Chat
       </CardHeader>
       <Divider />
       <CardBody>{body}</CardBody>

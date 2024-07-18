@@ -13,7 +13,9 @@ const MemberDetailedPage: NextPage<Props> = async ({ params }: Props) => {
 
   if (!member) return notFound();
 
-  return <CardInnerWrapper header="Profile" body={<div>Chat goes here</div>} footer={<div>Char form goes here</div>} />;
+  return (
+    <CardInnerWrapper header="Profile" body={<div>{member.description}</div>} />
+  );
 };
 
 export default MemberDetailedPage;
