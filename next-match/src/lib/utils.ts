@@ -33,7 +33,7 @@ export function transformImageUrl(imageUrl?: string | null) {
 
   const transformation = "c_fill,w_300,h_300,g_faces";
 
-  return `${imageUrl.slice(0, uploadIndex)}${transformation}${imageUrl.slice(
+  return `${imageUrl.slice(0, uploadIndex)}${transformation}/${imageUrl.slice(
     uploadIndex
   )}`;
 }
