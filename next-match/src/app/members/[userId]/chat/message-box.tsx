@@ -1,8 +1,10 @@
+"use client"
+
 import { transformImageUrl } from "@/lib/utils";
 import { MessageDto } from "@/types";
 import { Avatar } from "@nextui-org/react";
 import clsx from "clsx";
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 
 interface Props {
   message: MessageDto;
@@ -14,6 +16,12 @@ const MessageBox: FC<Props> = ({
   currentUserId,
 }: Props): JSX.Element => {
   const isCurrentUserSender = message.senderId === currentUserId;
+  const messageEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (messageEndRef.current)
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+  }, [messageEndRef]);
 
   const renderAvatar = () => (
     <Avatar
@@ -39,7 +47,9 @@ const MessageBox: FC<Props> = ({
         <span className="text-xs text-black text-italic">
           (Read 4 mins ago)
         </span>
-      ) : <div></div>}
+      ) : (
+        <div></div>
+      )}
       <div className="flex">
         <span className="text-sm font-semibold text-gray-900">
           {message.senderName}
@@ -68,6 +78,7 @@ const MessageBox: FC<Props> = ({
         {renderMessageContent()}
         {isCurrentUserSender && renderAvatar()}
       </div>
+      <div ref={messageEndRef}></div>
     </div>
   );
 };
