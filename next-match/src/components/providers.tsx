@@ -1,5 +1,6 @@
 "use client";
 
+import { usePresenceChannel } from "@/hooks/usePresenceChannel";
 import { NextUIProvider } from "@nextui-org/react";
 import { NextPage } from "next";
 import { ReactNode } from "react";
@@ -11,6 +12,8 @@ interface Props {
 }
 
 const Providers: NextPage<Props> = ({ children }: Props) => {
+  usePresenceChannel();
+  
   return (
     <NextUIProvider>
       <ToastContainer
