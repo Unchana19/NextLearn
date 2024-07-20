@@ -6,9 +6,10 @@ import MessageBox from "./message-box";
 import { pusherClient } from "@/lib/pusher";
 import { formatShortDateTime } from "@/lib/utils";
 import { Channel } from "pusher-js";
+import useMessageStore from "@/hooks/useMessageStore";
 
 interface Props {
-  initialMessages: MessageDto[];
+  initialMessages: { messages: MessageDto[]; readCount: number };
   currentUserId: string;
   chatId: string;
 }
@@ -19,7 +20,18 @@ const MessageList: FC<Props> = ({
   chatId,
 }: Props): JSX.Element => {
   const channelRef = useRef<Channel | null>(null);
-  const [message, setMessages] = useState(initialMessages);
+  const setReadCount = useRef(false);
+  const [message, setMessages] = useState(initialMessages.messages);
+  const { updateUnReadCount } = useMessageStore((state) => ({
+    updateUnReadCount: state.updateUnreadCount,
+  }));
+
+  useEffect(() => {
+    if (!setReadCount.current) {
+      updateUnReadCount(-initialMessages.readCount);
+      setReadCount.current = true;
+    }
+  });
 
   const handleNewMessage = useCallback((message: MessageDto) => {
     setMessages((prevState) => {
