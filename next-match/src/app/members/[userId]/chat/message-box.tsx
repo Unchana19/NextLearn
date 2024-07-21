@@ -3,7 +3,6 @@
 import PresenceAvatar from "@/components/presence-avatar";
 import { timeAgo, transformImageUrl } from "@/lib/utils";
 import { MessageDto } from "@/types";
-import { Avatar } from "@nextui-org/react";
 import clsx from "clsx";
 import { FC, useEffect, useRef } from "react";
 
