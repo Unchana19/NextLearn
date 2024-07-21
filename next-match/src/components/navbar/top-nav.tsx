@@ -6,7 +6,7 @@ import NavLink from "./nav-link";
 import { auth } from "@/auth";
 import UserMenu from "./user-menu";
 import { getUserInfoForNav } from "@/actions/userActions";
-import Filters from "./filters";
+import FiltersWrapper from "./filters-wrapper";
 
 interface Props {}
 
@@ -65,7 +65,7 @@ const TopNav: FC<Props> = async (props) => {
           )}
         </NavbarContent>
       </Navbar>
-      <Filters />
+      <FiltersWrapper />
     </>
   );
 };
