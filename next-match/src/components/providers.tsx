@@ -36,7 +36,7 @@ const Providers: NextPage<Props> = ({ children, userId }: Props) => {
     }
   }, [setUnreadCount, userId]);
 
-  usePresenceChannel();
+  usePresenceChannel(userId);
   useNotificationChannel(userId);
 
   return (

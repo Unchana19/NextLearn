@@ -3,7 +3,11 @@
 import { auth, signIn, signOut } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { LoginSchema } from "@/lib/schemas/loginSchema";
-import { registerSchema, RegisterSchema } from "@/lib/schemas/registerSchema";
+import {
+  combinedRegisterSchema,
+  registerSchema,
+  RegisterSchema,
+} from "@/lib/schemas/registerSchema";
 import { ActionResult } from "@/types";
 import { User } from "@prisma/client";
 import bcrypt from "bcryptjs";
@@ -42,13 +46,22 @@ export async function registerUser(
   data: RegisterSchema
 ): Promise<ActionResult<User>> {
   try {
-    const validate = registerSchema.safeParse(data);
+    const validate = combinedRegisterSchema.safeParse(data);
 
     if (!validate.success) {
       return { status: "error", error: validate.error.errors };
     }
 
-    const { name, email, password } = validate.data;
+    const {
+      name,
+      email,
+      password,
+      gender,
+      description,
+      dateOfBirth,
+      city,
+      country,
+    } = validate.data;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -63,6 +76,16 @@ export async function registerUser(
         name,
         email,
         passwordHash: hashedPassword,
+        member: {
+          create: {
+            name,
+            description,
+            city,
+            country,
+            dateOfBirth: new Date(dateOfBirth),
+            gender,
+          },
+        },
       },
     });
 
