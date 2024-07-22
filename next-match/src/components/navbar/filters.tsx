@@ -1,7 +1,14 @@
 "use client";
 
 import { useFilters } from "@/hooks/useFilters";
-import { Button, Select, SelectItem, Slider, Spinner } from "@nextui-org/react";
+import {
+  Button,
+  Select,
+  SelectItem,
+  Slider,
+  Spinner,
+  Switch,
+} from "@nextui-org/react";
 import { FC } from "react";
 
 interface Props {}
@@ -14,6 +21,7 @@ const Filters: FC<Props> = (props): JSX.Element | null => {
     selectAge,
     selectGender,
     selectOrder,
+    switchWithPhoto,
     isPending,
   } = useFilters();
 
@@ -22,7 +30,7 @@ const Filters: FC<Props> = (props): JSX.Element | null => {
       <div className="flex flex-row justify-around items-center">
         <div className="flex gap-2 items-center">
           <div className="text-secondary font-semibold text-xl">
-            Results: 10
+            Results: {10}
           </div>
           {isPending && <Spinner size="sm" color="secondary" />}
         </div>
@@ -52,6 +60,14 @@ const Filters: FC<Props> = (props): JSX.Element | null => {
             onChangeEnd={(value) => selectAge(value as number[])}
           />
         </div>
+        <Switch
+          onChange={switchWithPhoto}
+          color="secondary"
+          size="sm"
+          defaultSelected
+        >
+          With photo
+        </Switch>
         <div className="w-1/4">
           <Select
             size="sm"
