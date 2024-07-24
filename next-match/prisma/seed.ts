@@ -13,6 +13,7 @@ async function seedMembers() {
         name: member.name,
         passwordHash: await hash("password", 10),
         image: member.image,
+        profileComplete: true,
         member: {
           create: {
             dateOfBirth: new Date(member.dateOfBirth),
@@ -40,9 +41,11 @@ async function main() {
   await seedMembers();
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-}).finally(async () => {
-  await prisma.$disconnect();
-});
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

@@ -12,9 +12,10 @@ interface Props {
   body?: ReactNode;
   headerIcon: IconType;
   headerText: string;
-  subHeaderText: string;
+  subHeaderText?: string;
   action?: () => void;
   actionLabel?: string;
+  footer?: ReactNode;
 }
 
 const CardWrapper: FC<Props> = ({
@@ -24,6 +25,7 @@ const CardWrapper: FC<Props> = ({
   subHeaderText,
   action,
   actionLabel,
+  footer,
 }): JSX.Element => {
   return (
     <div className="flex items-center justify-center align-middle w-full vertical-center">
@@ -49,6 +51,7 @@ const CardWrapper: FC<Props> = ({
               {actionLabel}
             </Button>
           )}
+          {footer && <>{footer}</>}
         </CardFooter>
       </Card>
     </div>
