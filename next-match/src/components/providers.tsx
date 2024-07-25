@@ -13,9 +13,14 @@ import "react-toastify/dist/ReactToastify.css";
 interface Props {
   children: ReactNode;
   userId: string | null;
+  profileComplete: boolean;
 }
 
-const Providers: NextPage<Props> = ({ children, userId }: Props) => {
+const Providers: NextPage<Props> = ({
+  children,
+  userId,
+  profileComplete,
+}: Props) => {
   const isUnreadCountSet = useRef(false);
   const { updateUnreadCount } = useMessageStore((state) => ({
     updateUnreadCount: state.updateUnreadCount,
@@ -36,8 +41,8 @@ const Providers: NextPage<Props> = ({ children, userId }: Props) => {
     }
   }, [setUnreadCount, userId]);
 
-  usePresenceChannel(userId);
-  useNotificationChannel(userId);
+  usePresenceChannel(userId, profileComplete);
+  useNotificationChannel(userId, profileComplete);
 
   return (
     <NextUIProvider>

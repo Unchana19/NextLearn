@@ -4,11 +4,13 @@ import { signInUser } from "@/actions/authAction";
 import { loginSchema, LoginSchema } from "@/lib/schemas/loginSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button, Card, CardBody, CardHeader, Input } from "@nextui-org/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { GiPadlock } from "react-icons/gi";
 import { toast } from "react-toastify";
+import SocialLogin from "./social-login";
 
 interface Props {}
 
@@ -74,6 +76,10 @@ const LoginForm: FC<Props> = (props): JSX.Element => {
             >
               Login
             </Button>
+            <SocialLogin />
+            <div className="flex justify-center hover:underline text-sm">
+              <Link href={"/forgot-password"}>Forgot password?</Link>
+            </div>
           </div>
         </form>
       </CardBody>
