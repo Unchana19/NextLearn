@@ -1,9 +1,10 @@
-import { NextPage } from 'next';
+import { NextPage } from "next";
+import CompleteProfileForm from "./complete-profile-form";
 
 interface Props {}
 
 const CompleteProfilePage: NextPage<Props> = () => {
-  return <div>Complete profile</div>;
+  return <CompleteProfileForm />;
 };
 
 export default CompleteProfilePage;
