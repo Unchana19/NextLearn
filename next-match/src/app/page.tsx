@@ -1,7 +1,6 @@
-import { auth, signOut } from "@/auth";
-import { Button } from "@nextui-org/react";
+import { auth } from "@/auth";
+import ClientSession from "@/components/client-session";
 import { NextPage } from "next";
-import { FaRegSmile } from "react-icons/fa";
 
 interface Props {}
 
@@ -9,33 +8,18 @@ const HomePage: NextPage<Props> = async () => {
   const session = await auth();
 
   return (
-    <div>
-      <h1 className="text-3xl">Hello</h1>
-
-      <h3 className="text-2xl font-semibold">User session data: </h3>
-      {session ? (
-        <div>
-          <pre>{JSON.stringify(session, null, 2)}</pre>
-          <form
-            action={async () => {
-              "use server";
-
-              await signOut();
-            }}
-          >
-            <Button
-              type="submit"
-              color="primary"
-              variant="bordered"
-              startContent={<FaRegSmile size={20} />}
-            >
-              Sign Out
-            </Button>
-          </form>
-        </div>
-      ) : (
-        <div>Not Signed In</div>
-      )}
+    <div className="flex flex-row justify-around mt-20 gap-6">
+      <div className="bg-green-50 p-10 rounded-xl shadow-md w-1/2 overflow-auto">
+        <h3 className="text-2xl font-semibold">Server session data: </h3>
+        {session ? (
+          <div>
+            <pre>{JSON.stringify(session, null, 2)}</pre>
+          </div>
+        ) : (
+          <div>Not Signed In</div>
+        )}
+      </div>
+      <ClientSession />
     </div>
   );
 };

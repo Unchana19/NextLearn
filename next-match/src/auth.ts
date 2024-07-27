@@ -3,6 +3,7 @@ import NextAuth from "next-auth";
 import { prisma } from "./lib/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import authConfig from "./auth.config";
+import { Role } from "@prisma/client";
 
 export const {
   handlers: { GET, POST },
@@ -13,7 +14,9 @@ export const {
   callbacks: {
     async jwt({ user, token }) {
       if (user) {
+        console.log({user});
         token.profileComplete = user.profileComplete;
+        token.role = user.role;
       }
       return token;
     },
@@ -21,6 +24,7 @@ export const {
       if (token.sub && session.user) {
         session.user.id = token.sub;
         session.user.profileComplete = token.profileComplete as boolean;
+        session.user.role = token.role as Role
       }
       return session;
     },

@@ -7,6 +7,7 @@ import MemberImage from "./member-image";
 import StarButton from "./star-button";
 import { deleteImage, setMainImage } from "@/actions/userActions";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 interface Props {
   photos: Photo[] | null;
@@ -30,9 +31,14 @@ const MemberPhoto: FC<Props> = ({
     if (photo.url === mainImageUrl) return null;
 
     setLoading({ isLoading: true, id: photo.id, type: "main" });
-    await setMainImage(photo);
-    router.refresh();
-    setLoading({ isLoading: false, id: "", type: "" });
+    try {
+      await setMainImage(photo);
+      router.refresh();
+    } catch (error: any) {
+      toast.error(error.message);
+    } finally {
+      setLoading({ isLoading: false, id: "", type: "" });
+    }
   };
 
   const onDelete = async (photo: Photo) => {
@@ -45,7 +51,7 @@ const MemberPhoto: FC<Props> = ({
   };
 
   return (
-    <div className="grid grid-cols-5 gap-3 p-5">
+    <div className="grid grid-cols-5 gap-5 p-5">
       {photos &&
         photos.map((photo) => (
           <div key={photo.id} className="relative">

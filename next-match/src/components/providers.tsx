@@ -6,6 +6,7 @@ import { useNotificationChannel } from "@/hooks/useNotification";
 import { usePresenceChannel } from "@/hooks/usePresenceChannel";
 import { NextUIProvider } from "@nextui-org/react";
 import { NextPage } from "next";
+import { SessionProvider } from "next-auth/react";
 import { ReactNode, useCallback, useEffect, useRef } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -45,14 +46,16 @@ const Providers: NextPage<Props> = ({
   useNotificationChannel(userId, profileComplete);
 
   return (
-    <NextUIProvider>
-      <ToastContainer
-        position="bottom-right"
-        hideProgressBar
-        className="z-50"
-      />
-      {children}
-    </NextUIProvider>
+    <SessionProvider>
+      <NextUIProvider>
+        <ToastContainer
+          position="bottom-right"
+          hideProgressBar
+          className="z-50"
+        />
+        {children}
+      </NextUIProvider>
+    </SessionProvider>
   );
 };
 
