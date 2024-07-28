@@ -29,8 +29,8 @@ const LoginForm: FC<Props> = (props): JSX.Element => {
     const result = await signInUser(data);
 
     if (result.status === "success") {
-      router.push("/members");
       router.refresh();
+      router.push("/members");
     } else {
       toast.error(result.error as string);
     }
