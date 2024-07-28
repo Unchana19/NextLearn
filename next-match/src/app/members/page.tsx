@@ -5,6 +5,7 @@ import { fetchCurrentUserLikeIds } from "@/actions/likeAction";
 import PaginationComponent from "@/components/pagination-component";
 import { GetMemberParams } from "@/types";
 import EmptyState from "@/components/empty-state";
+import FiltersWrapper from "@/components/navbar/filters-wrapper";
 
 interface Props {
   searchParams: GetMemberParams;
@@ -16,6 +17,7 @@ const MembersPage: NextPage<Props> = async ({ searchParams }) => {
 
   return (
     <>
+      <FiltersWrapper totalCount={totalCount} />
       {!members || members.length === 0 ? (
         <EmptyState />
       ) : (

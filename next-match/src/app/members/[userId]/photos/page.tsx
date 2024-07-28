@@ -1,4 +1,5 @@
 import { getMemberPhotosByUserId } from "@/actions/memberAction";
+import MemberPhoto from "@/components/member-photo";
 import { CardHeader, Divider, CardBody, Image } from "@nextui-org/react";
 import { NextPage } from "next";
 
@@ -17,20 +18,7 @@ const PhotosMemberPage: NextPage<Props> = async ({ params }: Props) => {
       </CardHeader>
       <Divider />
       <CardBody>
-        <div className="grid grid-cols-5 gap-3">
-          {photos &&
-            photos.map((photo) => (
-              <div key={photo.id}>
-                <Image
-                  width={300}
-                  height={300}
-                  src={photo.url}
-                  alt="Image of member"
-                  className="object-cover aspect-square"
-                />
-              </div>
-            ))}
-        </div>
+        <MemberPhoto photos={photos!} />
       </CardBody>
     </>
   );

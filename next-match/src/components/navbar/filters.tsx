@@ -11,9 +11,11 @@ import {
 } from "@nextui-org/react";
 import { FC } from "react";
 
-interface Props {}
+interface Props {
+  totalCount: number;
+}
 
-const Filters: FC<Props> = (props): JSX.Element | null => {
+const Filters: FC<Props> = ({ totalCount }: Props): JSX.Element => {
   const {
     genderList,
     orderByList,
@@ -26,11 +28,11 @@ const Filters: FC<Props> = (props): JSX.Element | null => {
   } = useFilters();
 
   return (
-    <div className="shadow-md py-2">
+    <div className="shadow-md p-4 rounded-b-xl">
       <div className="flex flex-row justify-around items-center">
         <div className="flex gap-2 items-center">
           <div className="text-secondary font-semibold text-xl">
-            Results: {10}
+            Results: {totalCount}
           </div>
           {isPending && <Spinner size="sm" color="secondary" />}
         </div>
@@ -48,7 +50,7 @@ const Filters: FC<Props> = (props): JSX.Element | null => {
             </Button>
           ))}
         </div>
-        <div className="flex flex-row items-center gap-2 w-1/4">
+        <div className="flex flex-row items-center gap-2 w-1/5">
           <Slider
             label="Age range"
             aria-label="Age range"

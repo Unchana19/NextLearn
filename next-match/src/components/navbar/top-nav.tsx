@@ -46,9 +46,10 @@ const TopNav: FC<Props> = async (props) => {
           </div>
         </NavbarBrand>
         <NavbarContent justify="center">
-          {links.map((link) => (
-            <NavLink key={link.href} href={link.href} label={link.label} />
-          ))}
+          {session &&
+            links.map((link) => (
+              <NavLink key={link.href} href={link.href} label={link.label} />
+            ))}
         </NavbarContent>
         <NavbarContent justify="end">
           {userInfo ? (
@@ -75,7 +76,6 @@ const TopNav: FC<Props> = async (props) => {
           )}
         </NavbarContent>
       </Navbar>
-      <FiltersWrapper />
     </>
   );
 };

@@ -20,7 +20,9 @@ const NavLink: FC<Props> = ({ href, label }: Props): JSX.Element => {
   return (
     <NavbarItem isActive={pathname === href} as={Link} href={href}>
       <span>{label}</span>
-      {href === "/messages" && <span className="ml-1">({unreadCount})</span>}
+      {href === "/messages" && unreadCount > 0 && (
+        <span className="ml-1">({unreadCount})</span>
+      )}
     </NavbarItem>
   );
 };
