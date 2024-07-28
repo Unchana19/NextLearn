@@ -5,6 +5,8 @@ import {
   fetchLikedMembers,
 } from "@/actions/likeAction";
 
+export const dynamic = "force-dynamic";
+
 interface Props {
   searchParams: { type: string };
 }

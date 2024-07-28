@@ -3,6 +3,8 @@ import MemberPhoto from "@/components/member-photo";
 import { Divider } from "@nextui-org/react";
 import { NextPage } from "next";
 
+export const dynamic = "force-dynamic";
+
 interface Props {}
 
 const PhotoModerationPage: NextPage<Props> = async () => {
